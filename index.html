@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<title>Linked Lists</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="main.css">
+
+<body>
+
+  <div class="w3-container w3-teal">
+    <h1>Linked Lists</h1>
+  </div>
+
+  <div class="w3-content">
+
+    <div class="w3-row w3-margin">
+      <div class="w3-container">
+        <h3>2.1 Remove Dups</h3>
+        <p>
+          Write code to remove duplicates from an unsorted linked list.
+          FOLLOW UP:
+          How would you solve this problem if a temporary buffer is not allowed?
+        </p>
+        <p>
+          <a class="btn btn-primary" data-toggle="collapse" href="#LL1" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Solution
+          </a>
+        </p>
+        <div class="collapse" id="LL1">
+          <div class="card card-body">
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(n)</strong>
+def removeDups(head):
+    temp = set()
+    node = head
+    dummy = ListNode(-1)
+    while(node):
+        if node.val in temp:
+            dummy.next = node.next
+        else:
+            temp.add(node.val)
+            dummy = node
+        node = node.next
+
+    return head
+</pre>
+<h5> Follow up:</h5>
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(n2)</strong>
+def removeDups(head):
+    curr = head
+    while(curr):
+        node = curr
+        while(node.next):
+            if node.next.val == curr.val:
+                node.next = node.next.next
+            else:
+                node = node.next
+        curr = curr.next
+    return head
+</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="w3-row w3-margin">
+      <div class="w3-container">
+        <h3>2.2 Return Kth to Last</h3>
+        <p> Implement an algorithm to find the kth to last element of a singly linked list. </p>
+        <p><a class="btn btn-primary" data-toggle="collapse" href="#LL2" role="button" aria-expanded="false" aria-controls="collapseExample">Solution</a></p>
+        <div class="collapse" id="LL2">
+          <div class="card card-body">
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(n)</strong>
+def kLast(head,k):
+    l = 0
+    node = head
+    while(node):
+        l += 1
+        node = node.next
+    k = l-k
+    node = head
+    while(k>0):
+        k -= 1
+        node = node.next
+    return node.val
+</pre>
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(n) - optimal</strong>
+def kLast3(head,k):
+    node2 = head
+    while(k>0):
+        if node2 == None:
+            return -1
+        k -=1
+        node2 = node2.next
+
+    node1 = head
+    while(node2):
+        node1 = node1.next
+        node2 = node2.next
+
+    return node1.val
+</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="w3-row w3-margin">
+      <div class="w3-container">
+        <h3>2.3 Delete Middle Node</h3>
+        <p>
+          Implement an algorithm to delete a node in the middle (i.e. any node but the first and last node, not necessarily the exact middle) of a singly linked list, given only access to that node.
+          <br>EXAMPLE:
+          <br>Input: the node c from the linked list a -> b -> c -> d -> e -> f
+          <br>Result: nothing is returned, but the new linked list looks like a -> b-> d -> e-> f
+        </p>
+
+        <p><a class="btn btn-primary" data-toggle="collapse" href="#LL3" role="button" aria-expanded="false" aria-controls="collapseExample">Solution</a></p>
+        <div class="collapse" id="LL3">
+          <div class="card card-body">
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(1) </strong>
+def deleteMiddleNode(node):
+    node.val = node.next.val
+    node.next = node.next.next
+</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w3-row w3-margin">
+      <div class="w3-container">
+        <h3>2.4 Partition</h3>
+        <p>
+          Write code to partition a linked list around a value x, such that all nodes less than x come before all nodes greater than or equal to x . lf x is contained within the list, the values of x only need to be after the elements less than x (see below) . The partition element x can appear anywhere in the "right partition"; it does not need to appear between the left and right partitions.
+          <br>EXAMPLE:
+          <br>Input: 3 -> 5 -> 8 -> 5 - > 10 -> 2 -> 1 [partition = 5]
+          <br>Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
+        </p>
+
+        <p><a class="btn btn-primary" data-toggle="collapse" href="#LL4" role="button" aria-expanded="false" aria-controls="collapseExample">Solution</a></p>
+        <div class="collapse" id="LL4">
+          <div class="card card-body">
+<pre class="w3-code notranslate pythonHigh">
+<strong># O(n) - 4pointers </strong>
+def partition(head,p):
+    before1,before2,after1,after2 = None, None, None, None
+
+    node = head
+    while(node):
+        nextnode = node.next
+        node.next = None
+        if (node.val < p):
+            if before1 == None:
+                before1 = node
+                before2 = before1
+            else:
+                before2.next = node
+                before2 = before2.next
+        else:
+            if after1 == None:
+                after1 = node
+                after2 = after1
+            else:
+                after2.next = node
+                after2 = after2.next
+        node = nextnode
+
+    if before1 == None:
+        return after1
+
+    before2.next = after1
+    return before1
+</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>
