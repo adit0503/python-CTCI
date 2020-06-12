@@ -19,8 +19,8 @@
         <h3>2.1 Remove Dups</h3>
         <p>
           Write code to remove duplicates from an unsorted linked list.
-          FOLLOW UP:
-          How would you solve this problem if a temporary buffer is not allowed?
+          <br>FOLLOW UP:
+          <br>How would you solve this problem if a temporary buffer is not allowed?
         </p>
         <p>
           <a class="btn btn-primary" data-toggle="collapse" href="#LL1" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -28,7 +28,7 @@
           </a>
         </p>
         <div class="collapse" id="LL1">
-          <div class="card card-body">
+        <div class="card card-body">
 <pre class="w3-code notranslate pythonHigh">
 <strong># O(n)</strong>
 def removeDups(head):
@@ -36,31 +36,31 @@ def removeDups(head):
     node = head
     dummy = ListNode(-1)
     while(node):
-        if node.val in temp:
-            dummy.next = node.next
-        else:
-            temp.add(node.val)
-            dummy = node
-        node = node.next
+    if node.val in temp:
+        dummy.next = node.next
+    else:
+        temp.add(node.val)
+        dummy = node
+    node = node.next
 
     return head
 </pre>
-<h5> Follow up:</h5>
+        <h5> Follow up:</h5>
 <pre class="w3-code notranslate pythonHigh">
 <strong># O(n2)</strong>
 def removeDups(head):
     curr = head
     while(curr):
-        node = curr
-        while(node.next):
-            if node.next.val == curr.val:
-                node.next = node.next.next
-            else:
-                node = node.next
-        curr = curr.next
+    node = curr
+    while(node.next):
+        if node.next.val == curr.val:
+            node.next = node.next.next
+        else:
+            node = node.next
+    curr = curr.next
     return head
 </pre>
-          </div>
+        </div>
         </div>
       </div>
     </div>
@@ -179,10 +179,31 @@ def partition(head,p):
     before2.next = after1
     return before1
 </pre>
+<pre class="w3-code notranslate pythonHigh">
+<strong> # O(n) - 2pointers </strong>
+def partition(head,p):
+    before = after = head
+
+    node = head
+    while(node):
+        nextnode = node.next
+        if node.val < p:
+            node.next = before
+            before = node
+        else:
+            after.next = node
+            after = node
+        node = nextnode
+    after.next = None
+
+    return before
+</pre>
           </div>
         </div>
       </div>
     </div>
+
+
 
 
 
