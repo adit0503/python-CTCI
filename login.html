@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<body>
+
+<header class="w3-container w3-teal">
+  <h1>Login</h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+  <form class="w3-container w3-card-4">
+
+    <p>
+    <input class="w3-input" type="text" id="userid" placeholder="UserID" autocomplete="off" required>
+    <p>
+    <input class="w3-input" type="password" id="password" placeholder="Password" required>
+    <p>
+    <button class="w3-button w3-section w3-teal w3-ripple" id="btnlogin" type="reset"> Log in </button></p>
+
+  </form>
+</div>
+
+<script type="text/javascript">
+document.getElementById("btnlogin").onclick = function (){
+    let uid = document.getElementById("userid").value.trim();
+    let pass = document.getElementById("password").value.trim();
+    if (uid == "ctci" && pass == "python"){
+        alert( "validation succeeded" );
+        location.href ="https://ctciwithpython.netlify.app/submitquestion.html";
+    }
+    else{
+        alert( "incorrect username and password" );
+    }
+}
+</script>
+
+</body>
+</html>
